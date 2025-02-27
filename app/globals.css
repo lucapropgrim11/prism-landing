@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-purple: #6E3AFF;
+  --primary-blue: #4318FF;
+  --dark-navy: #0B0A1F;
+  --deep-purple: #1B0B45;
+  --light-gray: #CCCCCC;
+}
+
+@layer base {
+  body {
+    @apply bg-gradient-to-b from-[#0B0A1F] via-[#150B38] to-[#1B0B45] text-white min-h-screen;
+  }
+}
+
+@layer components {
+  .glass-effect {
+    @apply backdrop-blur-md bg-white/[0.03] border border-white/[0.05];
+  }
+  
+  .neon-glow {
+    @apply hover:shadow-[0_0_30px_rgba(110,58,255,0.3)] transition-all duration-300;
+  }
+  
+  .hover-scale {
+    @apply hover:scale-105 transition-transform duration-300;
+  }
+  
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#6E3AFF] to-[#4318FF];
+  }
+  
+  .cta-button {
+    @apply px-6 py-3 rounded-full bg-white text-[#0B0A1F] font-semibold
+           hover:bg-opacity-90 transition-all duration-300;
+  }
+
+  .purple-button {
+    @apply px-6 py-3 rounded-full bg-gradient-to-r from-[#6E3AFF] to-[#4318FF]
+           hover:shadow-[0_0_30px_rgba(110,58,255,0.3)] transition-all duration-300
+           font-semibold text-white;
+  }
+}
+
+/* Custom Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
