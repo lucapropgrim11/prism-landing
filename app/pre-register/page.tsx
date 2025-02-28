@@ -69,7 +69,7 @@ function PreRegisterForm() {
             </div>
             <h1 className="text-4xl font-bold mb-4">Thank You!</h1>
             <p className="text-xl text-white/60 mb-8">
-              We've received your pre-registration. We'll notify you when Prism launches!
+              We&apos;ve received your pre-registration. We&apos;ll notify you when Prism launches!
             </p>
             <Link href="/" className="purple-button inline-block">
               Return Home
