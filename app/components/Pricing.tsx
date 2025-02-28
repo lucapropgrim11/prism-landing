@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 interface PricingTierProps {
   name: string;
   price: string;
@@ -29,13 +31,16 @@ const PricingTier = ({ name, price, description, features, isPopular }: PricingT
         </li>
       ))}
     </ul>
-    <button className={`w-full py-3 rounded-full font-semibold transition-all duration-300 ${
-      isPopular 
-        ? 'bg-gradient-to-r from-purple-600 to-blue-600 hover:shadow-[0_0_20px_rgba(92,23,229,0.5)]' 
-        : 'border border-white/20 hover:bg-white/10'
-    }`}>
+    <Link
+      href={price === 'Free' ? '/' : '/pre-register'}
+      className={`w-full py-3 rounded-full font-semibold transition-all duration-300 block text-center ${
+        isPopular 
+          ? 'bg-gradient-to-r from-purple-600 to-blue-600 hover:shadow-[0_0_20px_rgba(92,23,229,0.5)]' 
+          : 'border border-white/20 hover:bg-white/10'
+      }`}
+    >
       {price === 'Free' ? 'Get Started' : 'Pre-Register Now'}
-    </button>
+    </Link>
   </div>
 );
 

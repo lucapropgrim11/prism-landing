@@ -39,9 +39,9 @@ export default function Header() {
 
           {/* Right Section */}
           <div className="hidden md:flex items-center">
-            <button className="purple-button">
+            <Link href="/pre-register" className="purple-button">
               Pre-Register Now
-            </button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -87,9 +87,9 @@ export default function Header() {
                 <span>{item.label}</span>
               </Link>
             ))}
-            <button className="w-full mt-4 purple-button">
+            <Link href="/pre-register" className="w-full mt-4 purple-button block text-center">
               Pre-Register Now
-            </button>
+            </Link>
           </div>
         )}
       </div>

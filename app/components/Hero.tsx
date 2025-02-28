@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 export default function Hero() {
   return (
     <div className="min-h-screen pt-32 pb-20 px-4 flex flex-col">
@@ -12,9 +14,9 @@ export default function Hero() {
           <p className="text-white/60 text-xl mb-12 leading-relaxed">
             Manage tasks, time, and projects all in one place with our intuitive dashboard interface.
           </p>
-          <button className="purple-button text-lg">
+          <Link href="/pre-register" className="purple-button text-lg">
             Pre-Register Now
-          </button>
+          </Link>
         </div>
 
         {/* Right Content - Dashboard Preview */}
