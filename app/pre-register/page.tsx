@@ -1,9 +1,4 @@
 'use client';
-export default function PreRegisterPage() {
-  return <PreRegisterForm />;
-}
-
-
 import { useState } from 'react';
 import Link from 'next/link';
 
@@ -208,4 +203,8 @@ function PreRegisterForm() {
       </div>
     </div>
   );
+}
+
+export default function PreRegisterPage() {
+  return <PreRegisterForm />;
 } 
