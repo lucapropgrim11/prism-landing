@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server';
+import { headers } from 'next/headers';
 import { supabase } from '@/utils/supabase';
+import { ratelimit } from '@/utils/ratelimit';
+import { sendWelcomeEmail, sendAdminNotificationEmail } from '@/utils/email';
 
 interface PreRegisterData {
   name: string;
@@ -10,6 +13,30 @@ interface PreRegisterData {
 
 export async function POST(request: Request) {
   try {
+    // Get IP for rate limiting
+    const forwardedFor = headers().get('x-forwarded-for');
+    const ip = forwardedFor?.split(',')[0] || 'anonymous';
+
+    // Check rate limit
+    const { success, limit, reset, remaining } = await ratelimit.limit(ip);
+    
+    if (!success) {
+      return NextResponse.json(
+        { 
+          error: 'Too many registration attempts. Please try again later.',
+          reset
+        },
+        { 
+          status: 429,
+          headers: {
+            'X-RateLimit-Limit': limit.toString(),
+            'X-RateLimit-Remaining': remaining.toString(),
+            'X-RateLimit-Reset': reset.toString()
+          }
+        }
+      );
+    }
+
     const data: PreRegisterData = await request.json();
 
     // Validate required fields
@@ -52,8 +79,7 @@ export async function POST(request: Request) {
           email: data.email,
           company: data.company || null,
           role: data.role || null,
-          // Let the database handle the timestamp
-          registered_at: null
+          registered_at: null // Let the database handle the timestamp
         },
       ]);
 
@@ -62,10 +88,29 @@ export async function POST(request: Request) {
       throw new Error('Failed to store registration');
     }
 
+    // Send welcome email to user
+    await sendWelcomeEmail(data.name, data.email);
+
+    // Send notification to admin
+    await sendAdminNotificationEmail(data);
+
     // Send a success response
     return NextResponse.json(
-      { message: 'Pre-registration successful' },
-      { status: 200 }
+      { 
+        message: 'Pre-registration successful',
+        rateLimit: {
+          remaining,
+          reset
+        }
+      },
+      { 
+        status: 200,
+        headers: {
+          'X-RateLimit-Limit': limit.toString(),
+          'X-RateLimit-Remaining': remaining.toString(),
+          'X-RateLimit-Reset': reset.toString()
+        }
+      }
     );
   } catch (error) {
     console.error('Pre-registration error:', error);
