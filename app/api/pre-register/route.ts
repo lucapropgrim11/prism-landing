@@ -14,7 +14,8 @@ interface PreRegisterData {
 export async function POST(request: Request) {
   try {
     // Get IP for rate limiting
-    const forwardedFor = headers().get('x-forwarded-for');
+    const headersObj = await headers();
+    const forwardedFor = headersObj.get('x-f');
     const ip = forwardedFor?.split(',')[0] || 'anonymous';
 
     // Check rate limit
