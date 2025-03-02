@@ -1,8 +1,8 @@
 'use client';
 
 interface SidebarProps {
-  activeView: 'tasks' | 'calendar' | 'timer' | 'analytics';
-  onViewChange: (view: 'tasks' | 'calendar' | 'timer' | 'analytics') => void;
+  activeView: 'tasks' | 'calendar' | 'timer' | 'analytics' | 'notes';
+  onViewChange: (view: 'tasks' | 'calendar' | 'timer' | 'analytics' | 'notes') => void;
 }
 
 export default function Sidebar({ activeView, onViewChange }: SidebarProps) {
@@ -13,6 +13,7 @@ export default function Sidebar({ activeView, onViewChange }: SidebarProps) {
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
         </svg>
       ),
     },
@@ -31,6 +32,15 @@ export default function Sidebar({ activeView, onViewChange }: SidebarProps) {
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+    },
+    {
+      id: 'notes',
+      label: 'Notes',
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
         </svg>
       ),
     },
@@ -76,6 +86,12 @@ export default function Sidebar({ activeView, onViewChange }: SidebarProps) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
               <span className="hidden md:block">New Task</span>
+            </button>
+            <button className="w-full flex items-center space-x-3 p-3 rounded-lg text-white/60 hover:bg-white/5 hover:text-white transition-colors">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              </svg>
+              <span className="hidden md:block">New Note</span>
             </button>
             <button className="w-full flex items-center space-x-3 p-3 rounded-lg text-white/60 hover:bg-white/5 hover:text-white transition-colors">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
