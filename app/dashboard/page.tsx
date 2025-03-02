@@ -7,9 +7,10 @@ import TaskList from '../../components/dashboard/TaskList';
 import Calendar from '../../components/dashboard/Calendar';
 import Timer from '../../components/dashboard/Timer';
 import Analytics from '../../components/dashboard/Analytics';
+import Notes from '../../components/dashboard/Notes';
 
 export default function DashboardPage() {
-  const [activeView, setActiveView] = useState<'tasks' | 'calendar' | 'timer' | 'analytics'>('tasks');
+  const [activeView, setActiveView] = useState<'tasks' | 'calendar' | 'timer' | 'analytics' | 'notes'>('tasks');
 
   const renderContent = () => {
     switch (activeView) {
@@ -21,6 +22,8 @@ export default function DashboardPage() {
         return <Timer />;
       case 'analytics':
         return <Analytics />;
+      case 'notes':
+        return <Notes />;
       default:
         return <TaskList />;
     }

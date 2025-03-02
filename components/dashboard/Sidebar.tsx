@@ -1,5 +1,6 @@
 'use client';
 
+import { Task } from './Task';
 interface SidebarProps {
   activeView: 'tasks' | 'calendar' | 'timer' | 'analytics' | 'notes';
   onViewChange: (view: 'tasks' | 'calendar' | 'timer' | 'analytics' | 'notes') => void;

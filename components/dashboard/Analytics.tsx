@@ -70,7 +70,7 @@ export default function Analytics() {
   const maxTasks = Math.max(...activities.map(a => a.tasksCompleted));
 
   return (
-    <div className="ml-20 md:ml-64">
+    <div className="ml-20 md:ml-64 pt-24">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-3xl font-bold text-white mb-8">Analytics</h1>
 

@@ -65,7 +65,7 @@ export default function Timer() {
   };
 
   return (
-    <div className="ml-20 md:ml-64">
+    <div className="ml-20 md:ml-64 pt-24">
       <div className="max-w-2xl mx-auto text-center">
         <h1 className="text-3xl font-bold text-white mb-8">Focus Timer</h1>
 

@@ -15,7 +15,7 @@ export default function PreRegisterPage() {
     <>
       {isClient && (
         <Script
-          src="https://epix-luke.kit.com/products/pre-registration"
+          src="https://epix-luke.kit.com/products/prism"
           strategy="lazyOnload"
         />
       )}
@@ -39,7 +39,7 @@ export default function PreRegisterPage() {
             <div className="text-center">
               {isClient && (
                 <a 
-                  href="https://epix-luke.kit.com/products/pre-registration" 
+                  href="https://epix-luke.kit.com/products/prism" 
                   data-commerce 
                   className="convertkit-button w-full purple-button inline-block text-center py-4 text-lg"
                 >

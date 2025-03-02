@@ -103,7 +103,7 @@ export default function Calendar() {
   };
 
   return (
-    <div className="ml-20 md:ml-64">
+    <div className="ml-20 md:ml-64 pt-24">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
@@ -113,7 +113,7 @@ export default function Calendar() {
               {currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
             </p>
           </div>
-          <button className="purple-button">
+          <button className="purple-button min-w-[160px] w-[160px] flex items-center">
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
             </svg>
