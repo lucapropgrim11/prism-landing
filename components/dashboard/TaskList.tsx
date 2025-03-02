@@ -39,11 +39,43 @@ export default function TaskList() {
     },
   ]);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newTask, setNewTask] = useState<Partial<Task>>({
+    title: '',
+    description: '',
+    status: 'todo',
+    priority: 'medium',
+    dueDate: new Date().toISOString().split('T')[0],
+  });
+
   const [filter, setFilter] = useState<'all' | 'todo' | 'in_progress' | 'completed'>('all');
 
   const filteredTasks = tasks.filter(task => 
     filter === 'all' ? true : task.status === filter
   );
+
+  const handleAddTask = () => {
+    if (!newTask.title) return;
+
+    const task: Task = {
+      id: Date.now().toString(),
+      title: newTask.title,
+      description: newTask.description,
+      status: newTask.status as Task['status'],
+      priority: newTask.priority as Task['priority'],
+      dueDate: newTask.dueDate,
+    };
+
+    setTasks([task, ...tasks]);
+    setIsModalOpen(false);
+    setNewTask({
+      title: '',
+      description: '',
+      status: 'todo',
+      priority: 'medium',
+      dueDate: new Date().toISOString().split('T')[0],
+    });
+  };
 
   const getPriorityColor = (priority: Task['priority']) => {
     switch (priority) {
@@ -72,12 +104,15 @@ export default function TaskList() {
   };
 
   return (
-    <div className="ml-20 md:ml-64">
+    <div className="ml-20 md:ml-64 pt-24">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold text-white">Tasks</h1>
-          <button className="purple-button">
+          <button 
+            onClick={() => setIsModalOpen(true)}
+            className="purple-button min-w-[160px] w-[160px] flex items-center justify-center"
+          >
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
             </svg>
@@ -145,6 +180,74 @@ export default function TaskList() {
             </div>
           ))}
         </div>
+
+        {/* Add Task Modal */}
+        {isModalOpen && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+            <div className="glass-effect p-8 rounded-2xl w-full max-w-lg">
+              <h2 className="text-2xl font-bold text-white mb-6">Create New Task</h2>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-white/60 mb-2">Title</label>
+                  <input
+                    type="text"
+                    value={newTask.title}
+                    onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
+                    className="w-full px-4 py-2 rounded-lg bg-white/[0.03] border border-white/[0.05] focus:outline-none focus:border-[#6E3AFF] text-white"
+                    placeholder="Task title"
+                  />
+                </div>
+                <div>
+                  <label className="block text-white/60 mb-2">Description</label>
+                  <textarea
+                    value={newTask.description}
+                    onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
+                    className="w-full px-4 py-2 rounded-lg bg-white/[0.03] border border-white/[0.05] focus:outline-none focus:border-[#6E3AFF] text-white h-32"
+                    placeholder="Task description"
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-white/60 mb-2">Priority</label>
+                    <select
+                      value={newTask.priority}
+                      onChange={(e) => setNewTask({ ...newTask, priority: e.target.value as Task['priority'] })}
+                      className="w-full p-2 rounded-lg bg-[#0B0A1F] text-white border border-[#6E3AFF]/50 focus:border-[#6E3AFF] focus:outline-none [&>option]:bg-[#0B0A1F] [&>option]:text-white"
+                    >
+                      <option value="low">Low</option>
+                      <option value="medium">Medium</option>
+                      <option value="high">High</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-white/60 mb-2">Due Date</label>
+                    <input
+                      type="date"
+                      value={newTask.dueDate}
+                      onChange={(e) => setNewTask({ ...newTask, dueDate: e.target.value })}
+                      className="w-full p-2 rounded-lg bg-[#0B0A1F] text-white border border-[#6E3AFF]/50 focus:border-[#6E3AFF] focus:outline-none [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert"
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-end space-x-4 mt-8">
+                  <button
+                    onClick={() => setIsModalOpen(false)}
+                    className="px-6 py-2 rounded-lg border border-white/20 text-white/60 hover:bg-white/5 hover:text-white transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleAddTask}
+                    className="purple-button px-6 py-2"
+                    disabled={!newTask.title}
+                  >
+                    Create Task
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
