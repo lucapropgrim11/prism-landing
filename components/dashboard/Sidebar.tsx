@@ -62,7 +62,7 @@ export default function Sidebar({ activeView, onViewChange }: SidebarProps) {
           {menuItems.map((item) => (
             <button
               key={item.id}
-              onClick={() => onViewChange(item.id as any)}
+              onClick={() => onViewChange(item.id as 'tasks' | 'calendar' | 'timer' | 'analytics' | 'notes')}
               className={`w-full flex items-center space-x-3 p-3 rounded-lg transition-colors ${
                 activeView === item.id
                   ? 'bg-[#6E3AFF] text-white'
